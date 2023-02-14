@@ -18,4 +18,4 @@ const postSchema = new Schema({
 
 const PostModels = model<MyData>("Posts collections", postSchema);
 
-export default PostModels
+export default PostModels;
