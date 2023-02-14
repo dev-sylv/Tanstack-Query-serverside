@@ -36,9 +36,19 @@ app.post("api/post/createpost", (req: Request, res: Response) =>{
 })
 
 // Edit single post:
-app.patch
+app.patch("/api/post/editpost/:id", (req: Request, res: Response) =>{
+    const { title } = req.body;
+    const editpost = PostModels.findByIdAndUpdate(req.params.id, {
+        title
+    });
+    res.status(200).json(editpost)
+})
 
 // Delete single post:
+app.delete("/api/post/editpost/:id", (req: Request, res: Response) =>{
+    const deletdpost = PostModels.findByIdAndRemove(req.params.id);
+    res.status(200).json(deletdpost)
+})
 
 app.listen(port, () =>{
     console.log("")

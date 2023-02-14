@@ -1,11 +1,11 @@
-import mongoose, { model, Schema } from "mongoose";
+import mongoose, { model, Schema, Document } from "mongoose";
 
 interface Data {
     title: string,
     description: string
 };
 
-interface MyData extends Data, Document{};
+interface PostData extends Data, Document{};
 
 const postSchema = new Schema({
     title: {
@@ -16,6 +16,6 @@ const postSchema = new Schema({
     }
 });
 
-const PostModels = model<MyData>("Posts collections", postSchema);
+const PostModels = model<PostData>("Posts collections", postSchema);
 
 export default PostModels;
