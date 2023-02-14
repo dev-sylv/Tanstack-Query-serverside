@@ -14,16 +14,29 @@ app.use(cors());
 // Controllers & Routes together:
 
 // Get all post:
-app.get("/api/post/getallposts", (req: Request, res: Response) =>{
+app.get("/api/post/getposts", (req: Request, res: Response) =>{
     const retrievePosts = PostModels.find();
     res.status(200).json(retrievePosts)
 })
 
 // Get one post:
+app.get("/api/post/getposts/:id", (req: Request, res: Response) =>{
+    const retrieveSinglePosts = PostModels.findById(req.params.id);
+    res.status(200).json(retrieveSinglePosts)
+})
 
 // Create Post:
+app.post("api/post/createpost", (req: Request, res: Response) =>{
+    const { title, description } = req.body;
+    const createdPost = PostModels.create({
+        title,
+        description
+    });
+    res.status(201).json(createdPost)
+})
 
 // Edit single post:
+app.patch
 
 // Delete single post:
 
