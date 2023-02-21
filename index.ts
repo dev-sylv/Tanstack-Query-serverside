@@ -14,25 +14,27 @@ const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(URL);
+mongoose.connect(URL).then(() =>{
+    console.log(`Database is connected to ${URL}`)
+});
 
 // Controllers & Routes together:
 
 // Get all post:
-app.get("/api/post/getposts", (req: Request, res: Response) =>{
-    const retrievePosts = PostModels.find();
+app.get("/api/post/getposts",  async(req: Request, res: Response) =>{
+    const retrievePosts = await PostModels.find();
     res.status(200).json(retrievePosts)
 })
 
 // Get one post:
-app.get("/api/post/getposts/:id", (req: Request, res: Response) =>{
-    const retrieveSinglePosts = PostModels.findById(req.params.id);
+app.get("/api/post/getposts/:id", async (req: Request, res: Response) =>{
+    const retrieveSinglePosts = await PostModels.findById(req.params.id);
     res.status(200).json(retrieveSinglePosts)
 })
 
 // Create Post:
-app.post("api/post/createpost", (req: Request, res: Response) =>{
-    const { title, description } = req.body;
+app.post("api/post/createpost", async (req: Request, res: Response) =>{
+    const { title, description } = await req.body;
     const createdPost = PostModels.create({
         title,
         description
@@ -41,17 +43,17 @@ app.post("api/post/createpost", (req: Request, res: Response) =>{
 })
 
 // Edit single post:
-app.patch("/api/post/editpost/:id", (req: Request, res: Response) =>{
+app.patch("/api/post/editpost/:id", async(req: Request, res: Response) =>{
     const { title } = req.body;
-    const editpost = PostModels.findByIdAndUpdate(req.params.id, {
+    const editpost = await PostModels.findByIdAndUpdate(req.params.id, {
         title
     });
     res.status(200).json(editpost)
 })
 
 // Delete single post:
-app.delete("/api/post/editpost/:id", (req: Request, res: Response) =>{
-    const deletdpost = PostModels.findByIdAndRemove(req.params.id);
+app.delete("/api/post/editpost/:id", async(req: Request, res: Response) =>{
+    const deletdpost = await PostModels.findByIdAndRemove(req.params.id);
     res.status(200).json(deletdpost)
 })
 
