@@ -15,6 +15,7 @@ app.use(express.json());
 app.use(cors());
 
 mongoose.connect(URL).then(() =>{
+    console.log("")
     console.log(`Database is connected to ${URL}`)
 });
 
@@ -22,7 +23,7 @@ mongoose.connect(URL).then(() =>{
 
 // Get all post:
 app.get("/api/post/getposts",  async(req: Request, res: Response) =>{
-    const retrievePosts = await PostModels.find();
+    const retrievePosts = await PostModels.find().sort({createdAt: -1});
     res.status(200).json(retrievePosts)
 })
 
@@ -33,9 +34,9 @@ app.get("/api/post/getposts/:id", async (req: Request, res: Response) =>{
 })
 
 // Create Post:
-app.post("api/post/createpost", async (req: Request, res: Response) =>{
-    const { title, description } = await req.body;
-    const createdPost = PostModels.create({
+app.post("/api/post/createpost", async (req: Request, res: Response) =>{
+    const { title, description } = req.body;
+    const createdPost = await PostModels.create({
         title,
         description
     });

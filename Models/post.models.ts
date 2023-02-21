@@ -14,7 +14,12 @@ const postSchema = new Schema({
     description: {
         type: String
     }
-});
+},
+{
+    timestamps: true,
+    versionKey: false
+}
+);
 
 const PostModels = model<PostData>("Posts collections", postSchema);
 
