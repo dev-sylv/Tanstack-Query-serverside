@@ -3,13 +3,18 @@ import express, { Application, Request, Response } from "express";
 import PostModels from "./Models/post.models";
 
 import cors from "cors";
+import mongoose from "mongoose";
 
 const port: number = 3400;
+
+const URL = "mongodb://localhost/Tanstack"
 
 const app: Application = express();
 
 app.use(express.json());
 app.use(cors());
+
+mongoose.connect(URL);
 
 // Controllers & Routes together:
 
