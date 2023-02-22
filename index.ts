@@ -58,6 +58,12 @@ app.delete("/api/post/editpost/:id", async(req: Request, res: Response) =>{
     res.status(200).json(deletdpost)
 })
 
+// Delete All post:
+app.delete("/api/post/deletepost", async(req: Request, res: Response) =>{
+    const deletdpost = await PostModels.deleteMany();
+    res.status(200).json(deletdpost)
+})
+
 app.listen(port, () =>{
     console.log("")
     console.log("Server is created and up and running on port", port)
